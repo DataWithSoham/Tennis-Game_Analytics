@@ -31,12 +31,14 @@ CREATE TABLE Complexes (
 
 CREATE TABLE Rankings (
     rank_id INT AUTO_INCREMENT PRIMARY KEY,
-    ranks INT NOT NULL,
+    rank_position INT NOT NULL,
     movement INT NOT NULL,
     points INT NOT NULL,
     competitions_played INT NOT NULL,
     competitor_id VARCHAR(50),
-    FOREIGN KEY (competitor_id) REFERENCES Competitors(competitor_id)
+    competition_id VARCHAR(50),
+    FOREIGN KEY (competitor_id) REFERENCES Competitors(competitor_id),
+    FOREIGN KEY (competition_id) REFERENCES Competitions(competition_id)
 );
 
 CREATE TABLE Venues (
