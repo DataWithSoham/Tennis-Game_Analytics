@@ -2,6 +2,13 @@ import streamlit as st
 from components.navbar import render_navbar
 from my_pages import home, competitors, country, leaderboard, simulation, predictor
 
+st.set_page_config(
+    page_title="Game Analytics: Tennis Data with SportRadar API",
+    page_icon="🎾",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
 # ---------------- NAVBAR ----------------
 page = render_navbar()
 
