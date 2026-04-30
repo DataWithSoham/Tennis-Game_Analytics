@@ -13,6 +13,7 @@ def build_features(p1, p2):
 
 
 def train_model(df):
+    np.random.seed(42)
     data = []
 
     players = df.to_dict("records")

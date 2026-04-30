@@ -3,37 +3,18 @@ import pandas as pd
 import numpy as np
 from utils.prediction import predict, train_model
 
-st.set_page_config(layout="wide")
+
 
 # -------------------------------
 # LOAD DATA
 # -------------------------------
-@st.cache_data
-def load_data():
-    competitors = pd.read_csv("data/processed_data/competitors.csv")
-    rankings = pd.read_csv("data/processed_data/rankings.csv")
-
-    df = pd.merge(rankings, competitors, on="competitor_id")
-
-    # FIX TYPES
-    df["rank_position"] = pd.to_numeric(df["rank_position"], errors="coerce")
-    df["points"] = pd.to_numeric(df["points"], errors="coerce")
-
-    # REMOVE NULLS
-    df = df.dropna(subset=["rank_position", "points"])
-
-    # REMOVE DUPLICATES 
-    df = df.sort_values("rank_position").drop_duplicates(
-        subset=["competitor_id"], keep="first"
-    )
-
-    return df
-
+from utils.data_loader import load_full_data
 
 # -------------------------------
 # MONTE CARLO SIMULATION
 # -------------------------------
 def simulate_match(p1_prob: float, simulations: int = 500):
+    np.random.seed(42)
     p1_wins = np.random.binomial(simulations, p1_prob)
     p2_wins = simulations - p1_wins
 
@@ -46,7 +27,7 @@ def simulate_match(p1_prob: float, simulations: int = 500):
 def show():
     st.title("🤖 Match Predictor (ML Simulation)")
 
-    df = load_data()
+    df = load_full_data()
 
     if df.empty:
         st.error("No data available")

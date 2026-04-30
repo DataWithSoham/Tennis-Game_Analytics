@@ -1,7 +1,7 @@
 import streamlit as st
 
 def render_navbar():
-    pages = ["Home", "Players", "Country", "Leaderboard", "Simulation", "Predictor"]
+    pages = ["Home", "Players", "Country", "Leaderboard", "Simulation", "Predictor", "Insights"]
 
     if "page" not in st.session_state:
         st.session_state.page = "Home"

@@ -3,16 +3,12 @@ import pandas as pd
 import plotly.express as px
 
 # --- LOAD DATA ---
-@st.cache_data
-def load_data():
-    competitors = pd.read_csv("data/processed_data/competitors.csv")
-    rankings = pd.read_csv("data/processed_data/rankings.csv")
-    return pd.merge(rankings, competitors, on="competitor_id")
+from utils.data_loader import load_full_data
 
 def show():
     st.title("Global Analytics")
 
-    df = load_data()
+    df = load_full_data()
 
     # ---------------- SIDEBAR ----------------
     with st.sidebar:

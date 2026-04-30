@@ -1,36 +1,16 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(layout="wide")
 
-@st.cache_data
-def load_data():
-    competitors = pd.read_csv("data/processed_data/competitors.csv")
-    rankings = pd.read_csv("data/processed_data/rankings.csv")
 
-    # ✅ Merge data
-    df = pd.merge(rankings, competitors, on="competitor_id")
-
-    # ✅ Fix column types
-    df["rank_position"] = pd.to_numeric(df["rank_position"], errors="coerce")
-    df["points"] = pd.to_numeric(df["points"], errors="coerce")
-
-    # ✅ Remove nulls
-    df = df.dropna(subset=["rank_position", "points"])
-
-    # ✅ Remove duplicates (CRITICAL)
-    df = df.sort_values("rank_position").drop_duplicates(
-        subset=["competitor_id"], keep="first"
-    )
-
-    return df
+from utils.data_loader import load_full_data
 
 
 def show():
 
     st.title("🔍 Player Deep Dive")
 
-    df = load_data()
+    df = load_full_data()
 
     if df.empty:
         st.warning("No data available")

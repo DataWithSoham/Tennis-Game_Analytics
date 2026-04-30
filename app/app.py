@@ -1,6 +1,6 @@
 import streamlit as st
 from components.navbar import render_navbar
-from my_pages import home, competitors, country, leaderboard, simulation, predictor
+from my_pages import home, competitors, country, leaderboard, simulation, predictor, insights
 
 st.set_page_config(
     page_title="Game Analytics: Tennis Data with SportRadar API",
@@ -30,3 +30,6 @@ elif page == "Simulation":
 
 elif page == "Predictor":
     predictor.show()
+
+elif page == "Insights":
+    insights.show()

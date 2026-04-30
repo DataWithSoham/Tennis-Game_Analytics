@@ -40,26 +40,7 @@ section[data-testid="stSidebar"] {
 """, unsafe_allow_html=True)
 
 
-# -------------------------------
-# LOAD DATA
-# -------------------------------
-@st.cache_data
-def load_data():
-    competitions = pd.read_csv("data/processed_data/competitions.csv")
-    categories = pd.read_csv("data/processed_data/categories.csv")
-
-    competitions["parent_id"] = competitions["parent_id"].fillna("ROOT")
-    competitions["type"] = competitions["type"].fillna("unknown")
-    competitions["gender"] = competitions["gender"].fillna("unknown")
-
-    competitions = competitions.merge(
-        categories[["category_id", "category_name"]],
-        on="category_id",
-        how="left"
-    )
-
-    return categories, competitions
-
+from utils.data_loader import load_competition_data
 
 # -------------------------------
 # MAIN PAGE
@@ -69,7 +50,7 @@ def show():
     st.markdown('<div class="title">Tournament Analytics Dashboard</div>', unsafe_allow_html=True)
     st.caption("Explore Tennis Event Hierarchies & Trends")
 
-    categories, competitions = load_data()
+    categories, competitions = load_competition_data()
 
     # -------------------------------
     # FILTERS

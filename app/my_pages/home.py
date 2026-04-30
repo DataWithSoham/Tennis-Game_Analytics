@@ -2,12 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# ---------------- PAGE CONFIG ---------------- #
-st.set_page_config(
-    page_title="Game Analytics: Tennis Data with SportRadar API",
-    layout="wide"
-)
-
 # ---------------- UI STYLE ---------------- #
 st.markdown("""
 <style>
@@ -35,32 +29,14 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- DATA LOADER ---------------- #
-@st.cache_data
-def load_data():
-    competitors = pd.read_csv("data/processed_data/competitors.csv")
-    rankings = pd.read_csv("data/processed_data/rankings.csv")
-
-    df = pd.merge(rankings, competitors, on="competitor_id")
-
-    df["rank_position"] = pd.to_numeric(df["rank_position"], errors="coerce")
-    df["points"] = pd.to_numeric(df["points"], errors="coerce")
-
-    df = df.dropna(subset=["rank_position", "points"])
-
-    df = df.sort_values("rank_position").drop_duplicates(
-        subset=["competitor_id"], keep="first"
-    )
-
-    return df
-
+from utils.data_loader import load_full_data
 
 # ---------------- MAIN ---------------- #
 def show():
 
     st.markdown('<div class="title"> Game Analytics: Tennis Data with SportRadar API </div>', unsafe_allow_html=True)
 
-    df = load_data()
+    df = load_full_data()
 
     if df.empty:
         st.warning("No data available")
