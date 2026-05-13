@@ -20,6 +20,23 @@ This project implements a complete data analytics stack for tennis performance d
 
 ---
 
+## 👥 Team Contributions
+
+| Area | Contribution |
+|------|--------------|
+| API Integration & Data Pipeline | Sibam Sen |
+| SQL Database Design & Analytics | Soham Indore |
+| Streamlit Dashboard Development | Achintya Krishna |
+| Documentation & Presentation | Eshani Banik |
+
+### SQL Analytics Highlights
+- Designed normalized relational schemas using **primary keys** and **foreign keys**
+- Performed analytical querying using **joins, aggregations, filtering, and subqueries**
+- Analyzed **player rankings, tournament structures, venue insights, and country-wise performance metrics**
+- Supported dashboard reporting through optimized SQL analysis workflows
+
+---
+
 ## 📂 Project Structure
 
 ```
